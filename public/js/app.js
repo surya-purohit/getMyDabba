@@ -18,7 +18,7 @@ App.Router.map(function() {
     this.resource("index", {
         path: "/"
     });
-    this.resource("menu", function(){
+    this.resource("menus", function(){
         this.route("add");
     });
     this.route("contact");

@@ -1,7 +1,12 @@
 App.ApplicationController = Ember.ArrayController.extend({
-	logged:false,
+	logged:true,
+	vendorId:"",
     actions: {
-    	
+    	logout:function(){
+    		console.log("logout");
+    		this.set("logged",true);
+    		this.transitionToRoute('index');
+    	}
     }
 });
 
