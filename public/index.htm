@@ -28,20 +28,13 @@
     <script src="js/routes/product.js"></script>
     <script src="js/routes/application.js"></script>
     <script src="js/routes/vendor.js"></script>
+    <script src="js/routes/social.js"></script>
     <script src="js/controllers/vendor.js"></script>
     <script src="js/routes/menu-add.js"></script>
     <script src="js/controllers/menu-add.js"></script>
     <script src="js/routes/menu-index.js"></script>
     <script src="js/controllers/menu-index.js"></script>
     <script>
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4&appId=116500042030173";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
     </script>
 </head>
 
@@ -66,11 +59,9 @@
                 </div>
                 <div id="links">
 
-                    {{#link-to "products" tagName="a"}}
+                    {{#link-to "products.index" tagName="a"}}
                     <button class="link_button" style="font-size: large !important; background: transparent !important">Order Online</button>
-                    {{/link-to}}
-                    {{#if logged}}
-                    {{#link-to "vendor" tagName="div"}}
+                    {{/link-to}} {{#if logged}} {{#link-to "vendor" tagName="div"}}
                     <button class="link_button" style="font-size: large !important; background: transparent !important">Vendors Login</button>
                     {{/link-to}} {{else}}
                     <button {{action "logout"}} class="link_button" style="font-size: large !important; background: transparent !important">Logout </button>
@@ -152,10 +143,12 @@
         </div>
         </div>
     </script>
-    <script type="text/x-handlebars" id="menus/add" data-template-name="menus/add">
+
+    <script type="text/x-handlebars" id="menu/add" data-template-name="menu/add">
         <div class="additem">
             <div class="additem-header">
                 <div class="additem-title">Add Tomorrow Menu</div>
+                <div class="closebtn btn btn-danger pull-right btn-sm" {{action 'cancelAddMenu'}}>X</div>
             </div>
             <div class="form-horizontal">
                 <div class="additem-body addProp full-width">
@@ -196,6 +189,7 @@
                         <div class="controls">{{input type="text" id="dessert"}}</div>
                     </div>
                     <div class="control-group addControlGroup">
+
                         <label class="control-label">Price <span class="star">*</span>:</label>
                         <div class="controls">{{input type="text" id="price"}}</div>
                     </div>
@@ -223,12 +217,14 @@
             </div>
             <div id="btn-container">
                 <div class="login-btn" {{action "login"}}>Login</div>
-    <script type="text/x-handlebars" id="products">
+            </div>
+        </div>
+    </script>
+    <script type="text/x-handlebars" id="products/index">
         <table>
             <tbody>
-                {{log products}}
-                {{#each products}}
-                {{#link-to "product" this tagName="tr"}}<tr>
+                <h1 style="color: white">Breakfast</h1> {{#each products}} {{#link-to "product" this tagName="tr"}}
+                <tr>
                     <td class="itemsToBuy">
                         <div>
                             <img {{bind-attr src=this.image}} width="200px" height="200px" />
@@ -236,13 +232,29 @@
                     </td>
                     <td>
                         <div>
-                            <h4>{{menuType}}</h4>
+                            {{!--
+                            <h4>{{menuType}}</h4>--}}
                             <h3 style="float:right">Rs.{{price}}</h3>
-                            <br> Food Items: {{log this.foodItem}}{{#each foodItem}}{{log this}}{{veg}} {{breads}} {{rice}} {{curd}} {{salad}} {{dessert}}{{/each}}
+                            <br> Food Items: {{#each foodItem}}{{log this}}{{veg}} {{breads}} {{rice}} {{curd}} {{salad}} {{dessert}}{{/each}}
                             <br>Seller: {{venId}}</div>
                     </td>
-                </tr>{{/link-to}}
-                {{/each}}
+                </tr>{{/link-to}} {{/each}}
+                <h1 style="color: white">Lunch</h1> {{#each lunch}} {{#link-to "product" this tagName="tr"}}
+                <tr>
+                    <td class="itemsToBuy">
+                        <div>
+                            <img {{bind-attr src=this.image}} width="200px" height="200px" />
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            {{!--
+                            <h4>{{menuType}}</h4>--}}
+                            <h3 style="float:right">Rs.{{price}}</h3>
+                            <br> Food Items: {{#each foodItem}}{{log this}}{{veg}} {{breads}} {{rice}} {{curd}} {{salad}} {{dessert}}{{/each}}
+                            <br>Seller: {{venId}}</div>
+                    </td>
+                </tr>{{/link-to}} {{/each}}
             </tbody>
         </table>
     </script>

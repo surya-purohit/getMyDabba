@@ -1,6 +1,12 @@
-App.ProductsController = Ember.ArrayController.extend({
-	
-    actions: {
+App.ProductsIndexController = Ember.Controller.extend({
+	menuType: ["breakfast", "lunch", "dinner"],
+	actions: {
     	
     }
 });
+// App.ProductsController = Ember.Controller.extend({
+	
+//     actions: {
+    	
+//     }
+// });
