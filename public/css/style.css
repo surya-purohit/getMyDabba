@@ -69,7 +69,9 @@ header {
 	max-width: 200px;
 }
 td {
-	/*min-width: 200px;*/
+	min-width: 200px;
+	padding: 5px;
+	color: #fff;
 }
 table {
 	width: 100%;

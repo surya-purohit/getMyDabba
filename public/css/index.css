@@ -98,8 +98,8 @@ body{
 	font-size: 22px;
 	color: #ffffff;
 	float:left;
-	border-top-left-radius: 25px;
-	border-top-right-radius: 25px;
+	/*border-top-left-radius: 25px;
+	border-top-right-radius: 25px;*/
 	-webkit-transition-duration: .5s;
 	-moz-transition-duration: .5s;
 	-o-transition-duration: .5s;
@@ -327,7 +327,8 @@ body{
 #social_page{
 	height: 290px;
 	width: 100%;
-	background-color: #000000;
+	background-color: #fff;
+	
 }
 
 .overlayWrapper {
