@@ -225,8 +225,8 @@ body{
 	opacity: 1;
 }
 .info_box h2{
-	color: #aaaaaa;
-	margin-bottom: 4px;
+	color: #aaaaaa !important;
+	margin-bottom: 4px !important;
 }
 .info_box p{
 	color: #5555ff;

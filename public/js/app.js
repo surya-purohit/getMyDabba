@@ -18,5 +18,6 @@ App.Router.map(function() {
     this.resource("index", {
         path: "/"
     });
+    this.route("contact");
 });
 App.ApplicationAdapter = DS.FixtureAdapter;

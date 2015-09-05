@@ -2,9 +2,9 @@
 
 <head>
     <title>GetMyDabba.com Door To Door Tiffin Services</title>
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-        <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link href="css/bootstrap.css" media="screen" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <!-- libraries -->
@@ -25,50 +25,95 @@
 
 <body>
     <script type="text/x-handlebars" id="application" data-template-name="application">
-        
-        {{outlet}}
-    </script>
-    <script type="text/x-handlebars" id="index" data-template-name="index">
         <div id="box">
             <div id="header">
                 <div id="logo"></div>
-                <div id="path"><div id="delivery"></div></div>
+                <div id="path">
+                    <div id="delivery"></div>
+                </div>
                 <div id="links">
-                    <a href="#"><div class="link_button">Order Online</div></a>
-                    <a href="#"><div class="link_button">Vendors Login</div></a>
+                    <a href="#">
+                        <div class="link_button">Order Online</div>
+                    </a>
+                    <a href="#">
+                        <div class="link_button">Vendors Login</div>
+                    </a>
                 </div>
             </div>
             <div id="nav">
-                <a href="#"><div class="nav_button"><p>HOME</p></div></a>
-                <a href="about.html"><div class="nav_button"><p>ABOUT US</p></div></a>
-                <a href="visionmission.html"><div class="nav_button"><p>VISSION AND MISSION</p></div></a>
-                <a href="social.html"><div class="nav_button"><p>Social Connect</p></div></a>
-                <a href="contact.html"><div class="nav_button"><p>CONTACT US</p></div></a>
-            </div>
-            <div id="slider">
-            </div>
-            <div id="info">
-                <div id="services" class="info_box">
-                    <h2>What Can You Do Here?</h2>
-                        <p>Select Your "Khane Ka Dabba" According To Your Tastes!<p>
-                        <p>Order Before Closing Time!<p>
-                        <p>Pay by Cash on Delivery!<p>
-                </div>
-                <div id="tips" class="info_box">
-                    <h2>Tips</h2>
-                            <p>Order Your Tiffin before the closing time.</p>
-                </div>
-                <div id="time" class="info_box">
-                    <h2>Booking Time</h2>
-                        <p><b>Breakfast:</b> 12a.m. to 7p.m.</p>
-                        <p><b>Lunch:</b> 12a.m. to 1p.m.</p>
-                        <p><b>Dinner:</b> 12a.m. to 8p.m.</p>
-                </div>
-            </div>
+                <a href="#">
+                    <div class="nav_button">
+                        <p>HOME</p>
+                    </div>
+                </a>
+                <a href="about.html">
+                    <div class="nav_button">
+                        <p>ABOUT US</p>
+                    </div>
+                </a>
+                <a href="visionmission.html">
+                    <div class="nav_button">
+                        <p>VISSION AND MISSION</p>
+                    </div>
+                </a>
+                <a href="social.html">
+                    <div class="nav_button">
+                        <p>Social Connect</p>
+                    </div>
+                </a>
+                {{#link-to "contact" tagName="a"}}
+                    <div class="nav_button">
+                        <p>CONTACT US</p>
+                    </div>
+                {{/link-to}}
+            </div>{{outlet}}
             <div id="footer">
                 <p id="copyright">&copy; 2015 GetMyDabba. All Rights Reserved.</p>
                 <p id="powered">Powered by: Ember Team</p>
             </div>
+        </div>
+        </div>
+    </script>
+    <script type="text/x-handlebars" id="index" data-template-name="index">
+        <div id="slider">
+        </div>
+        <div id="info">
+            <div id="services" class="info_box">
+                <h2>What Can You Do Here?</h2>
+                <p>Select Your "Khane Ka Dabba" According To Your Tastes!
+                    <p>
+                        <p>Order Before Closing Time!
+                            <p>
+                                <p>Pay by Cash on Delivery!
+                                    <p>
+            </div>
+            <div id="tips" class="info_box">
+                <h2>Tips</h2>
+                <p>Order Your Tiffin before the closing time.</p>
+            </div>
+            <div id="time" class="info_box">
+                <h2>Booking Time</h2>
+                <p><b>Breakfast:</b> 12a.m. to 7a.m.</p>
+                <p><b>Lunch:</b> 12a.m. to 1p.m.</p>
+                <p><b>Dinner:</b> 12a.m. to 8p.m.</p>
+            </div>
+        </div>
+        </div>
+    </script>
+    <script type="text/x-handlebars" id="contact">
+        <div id="page">
+            <h1>Contact Us</h1>
+            <div id="contact_img" /></div>
+        <div id="contact_info" \>
+            <h1>Address:</h1>
+            <p>SCF 210,</p>
+            <p>Green Sq Market
+                <p>
+                    <p>Hisar, Haryana</p>
+                    <h1>Contact No.:</h1>
+                    <p>+91-9871-889918</p>
+                    <p>+91-9518-222022</p>
+        </div>
         </div>
     </script>
 </body>
