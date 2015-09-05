@@ -29,6 +29,7 @@ App.Router.map(function() {
     this.route("social");
     this.route("buynow");
     this.route("confirmation");
+    this.route("about");
 });
 
 
