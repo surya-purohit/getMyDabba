@@ -18,6 +18,60 @@ App.Router.map(function() {
     this.resource("index", {
         path: "/"
     });
+    this.resource("menu", function(){
+        this.route("add");
+    });
     this.route("contact");
+    this.route("vendor");
 });
-App.ApplicationAdapter = DS.FixtureAdapter;
+
+
+App.ApplicationAdapter = DS.FixtureAdapter.extend({
+
+    p: 1,
+    mulDeleteShape: [],
+    queryFixtures: function(records, query, type) {
+        return records.filter(function(record) {
+            for (var key in query) {
+                if (!query.hasOwnProperty(key)) {
+                    continue;
+                }
+                var value = query[key];
+                if (record[key] !== value) {
+                    return false;
+                }
+            }
+            return true;
+        });
+    },
+    //creates a record 
+    createRecord: function(store, type, record) {
+        return this._super(store, type, record);
+    },
+
+    deleteRecord: function(store, type, record) {
+        return this._super(store, type, record);
+
+    },
+
+    updateRecord: function(store, type, record) {
+        return this._super(store, type, record);
+
+    },
+
+    find: function(store, type, id) {
+        // console.log("FixtureAdapter.find");
+
+        return this._super(store, type, id);
+
+    },
+
+    findMany: function(store, type, ids) {
+        // console.log("FixtureAdapter.findMany");
+
+        return this._super(store, type, ids);
+
+    },
+
+});
+

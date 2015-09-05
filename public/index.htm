@@ -5,8 +5,9 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
-    <link href="css/bootstrap.css" media="screen" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/daba.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap.css" media="screen" rel="stylesheet" />
     <!-- libraries -->
     <script src="js/lib/jquery-2.1.1.min.js"></script>
     <script src="js/lib/handlebars-v1.3.0.js"></script>
@@ -17,10 +18,16 @@
     <script src="js/lib/underscore.js"></script>
     <script src="js/lib/utils.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/models/vendor.js"></script>
+    <script src="js/models/menu.js"></script>
     <script src="js/controllers/index.js"></script>
     <script src="js/controllers/application.js"></script>
     <script src="js/routes/index.js"></script>
     <script src="js/routes/application.js"></script>
+    <script src="js/routes/vendor.js"></script>
+    <script src="js/controllers/vendor.js"></script>
+    <script src="js/routes/menu-add.js"></script>
+    <script src="js/controllers/menu-add.js"></script>
 </head>
 
 <body>
@@ -35,9 +42,15 @@
                     <a href="#">
                         <div class="link_button">Order Online</div>
                     </a>
-                    <a href="#">
-                        <div class="link_button">Vendors Login</div>
-                    </a>
+                    {{#if logged}}
+                    {{#link-to "vendor" tagName="div"}}
+                    <button class="link_button" style="font-size: large !important; background: transparent !important">Vendors Login</button>
+                    {{/link-to}}
+                    {{else}}
+                    {{#link-to "menu.add" tagName="div"}}
+                        <button class="link_button" style="font-size: large !important; background: transparent !important">Menu add </button>
+                        {{/link-to}}
+                    {{/if}}
                 </div>
             </div>
             <div id="nav">
@@ -62,9 +75,9 @@
                     </div>
                 </a>
                 {{#link-to "contact" tagName="a"}}
-                    <div class="nav_button">
-                        <p>CONTACT US</p>
-                    </div>
+                <div class="nav_button">
+                    <p>CONTACT US</p>
+                </div>
                 {{/link-to}}
             </div>{{outlet}}
             <div id="footer">
@@ -114,6 +127,83 @@
                     <p>+91-9871-889918</p>
                     <p>+91-9518-222022</p>
         </div>
+        </div>
+    </script>
+    <script type="text/x-handlebars" id="index" data-template-name="vendor-add">
+    </script>
+    <script type="text/x-handlebars" id="menu/add" data-template-name="menu/add">
+            <div class="additem">
+                <div class="additem-header">
+                    <div class="additem-title">Add Tomorrow Menu</div>
+                    <div class="closebtn btn btn-danger pull-right btn-sm" {{action 'cancelAddMenu'}}>X</div>
+                </div>
+                <div class="form-horizontal">
+                    <div class="additem-body addProp full-width">
+                        <div class="control-group addControlGroup">
+                            <label class="control-label"></label>
+                            <div>
+                                <span class="error">{{checked}} </span>
+                            </div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Menu type <span class="star">*</span>:</label>
+                            <div class="controls" id="menu_select">
+                                {{view "select" content=menuType optionValuePath="content" optionLabelPath="content" selection=menu prompt="Select a Menu Type" id="menu"}}
+                            </div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Veg <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="veg"}}</div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Breads <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="breads"}}</div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Rice <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="rice"}}</div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Curd <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="curd"}}</div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Salad <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="salad"}}</div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Desserts <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="dessert"}}</div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Price <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="price"}}</div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Max Order <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="order"}}</div>
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div class="additem-footer">
+                        <input type="button" class="btn btn-primary" {{action 'addMenu'}} value="Save">
+                        <div class="btn" {{action 'cancelAddMenu'}}>Cancel</div>
+                    </div>
+                </div>
+        </div>
+    </script>
+    <script type="text/x-handlebars" id="vendor" data-template-name="vendor">
+        <div class="msgdiv">{{errorMessage}}</div>
+        <div class="formdiv">
+            <div>
+                {{input type="text" id="username" class="login-txtbox" placeholder="Username" value=username maxlength="100" keyPress=Utils.String.ensureAlphaNumeric title="Username" action="forceLogin" on="key-press"}}
+            </div>
+            <div>
+                {{input type="password" id="password" class="login-txtbox" placeholder="Password" value=password maxlength="100" title="Password" action="forceLogin" on="key-press"}}
+            </div>
+            <div id="btn-container">
+                <div class="login-btn" {{action "login"}}>Login</div>
+            </div>
         </div>
     </script>
 </body>
