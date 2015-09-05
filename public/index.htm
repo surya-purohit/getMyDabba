@@ -11,8 +11,8 @@
     <!-- libraries -->
     <script src="js/lib/jquery-2.1.1.min.js"></script>
     <script src="js/lib/handlebars-v1.3.0.js"></script>
-    <script src="js/lib/emberV1.7.0.js"></script>
     <script src="js/lib/ember181.js"></script>
+    <script src="js/lib/emberV1.7.0.js"></script>
     <script src="js/lib/ember-data.js"></script>
     <script src="js/lib/ember-shortcut.js"></script>
     <script src="js/lib/uuid.js"></script>
@@ -230,7 +230,7 @@
     <script type="text/x-handlebars" id="products/index">
         <table>
             <tbody>
-                <h1 style="color: white">Breakfast</h1> {{#each products}} {{#link-to "product" this tagName="tr"}}
+                <h1 style="color: white">Breakfast</h1> {{#each products}} 
                 <tr>
                     <td class="itemsToBuy">
                         <div>
@@ -241,11 +241,14 @@
                         <div>
                             {{!--
                             <h4>{{menuType}}</h4>--}}
-                            <h3 style="float:right">Rs.{{price}}</h3>
+                            <span style="float:right; display:inline-block;">
+                            <h3>Rs.{{price}}</h3>
+                            {{#link-to "buynow"  tagName="div"}}<button class="cnfmBtn">Buy</button>{{/link-to}}
+                            </span>
                             <br> Food Items: {{#each foodItem}}{{log this}}{{veg}} {{breads}} {{rice}} {{curd}} {{salad}} {{dessert}}{{/each}}
                             <br>Seller: {{venId}}</div>
                     </td>
-                </tr>{{/link-to}} {{/each}}
+                </tr> {{/each}}
                 <h1 style="color: white">Lunch</h1> {{#each lunch}} {{#link-to "product" this tagName="tr"}}
                 <tr>
                     <td class="itemsToBuy">
@@ -315,9 +318,9 @@
         {{input type="text" value=address id="address" keyPress=Utils.String.ensureAlphaNumeric maxlength=50 autofocus="true"}}
         <label class ="lable1" >Mobile number <span class="star">*</span>&nbsp;:</label>
         {{input type="text" id="mobile" value=mobile keyPress=Utils.String.ensureNumeric maxlength=50 autofocus="true"}}
-        <label class ="lable1">Price&nbsp;:</label>
-        {{input type="text" id="price" value=city keyPress=Utils.String.ensureAlphaNumeric maxlength=50 autofocus="true" disabled=true}}<br>
-        <button id="cnfmBtn" {{action 'add'}}>Confirm Order</button>
+        <label class ="lable1">No. Of order&nbsp;:</label>
+         {{view "select" content=quantList optionValuePath="content" optionLabelPath="content" selectionBinding="quant" id="quant"}}
+        <button class="cnfmBtn" {{action 'add'}}>Confirm Order</button>
                    
     </div>
     </script>

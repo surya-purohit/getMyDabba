@@ -1,4 +1,10 @@
 App.BuynowController = Ember.ArrayController.extend({
+    quantList :[1,2,3,4,5],
+    queryParams:['obj'],
+    calPrice: function() {
+       console.log("cvcfd");
+       console.log(this.get("abc"))
+   }.observes("quant"),
     actions: {
         add: function() {
             var that = this;
