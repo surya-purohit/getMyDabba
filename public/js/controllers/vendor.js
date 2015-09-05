@@ -1,11 +1,10 @@
 App.VendorController = Ember.ArrayController.extend({
-    needs:["application"],
+    needs: ["application"],
     actions: {
         login: function() {
-            var app = this.get("controller.application");
+            var app = this.get("controllers.application");
             var u = this.get("username");
             var p = this.get("password");
-            console.log(u, p);
             // if user and pass input exist
             if (u && u.length > 1 && p && p.length > 1) {
                 var that = this;
@@ -13,13 +12,17 @@ App.VendorController = Ember.ArrayController.extend({
                     "venName": u,
                     "password": p
                 }
-                this.store.find("vendor",opt).then(function(data) {
-                    console.log(data);
-                    that.set("errorMessage", "");
-                    app.set("logged",true);
-                    app.set("vendorId",data.get("venId"));
-                    that.transitionToRoute('menu.add');
-
+                this.store.find("vendor", opt).then(function(data) {
+                    data.forEach(function(data1) {
+                        if (data1) {
+                            that.set("errorMessage", "");
+                            app.set("logged", false);
+                            app.set("vendorId", data1.get("venId"));
+                            that.transitionToRoute('menus');
+                        } else {
+                            that.set("errorMessage", "The username or password is incorrect.");
+                        }
+                    })
                 }, function(err) {
                     console.log(err);
                     that.set("errorMessage", "The username or password is incorrect.");
@@ -29,7 +32,7 @@ App.VendorController = Ember.ArrayController.extend({
             }
 
         },
-         forceLogin: function() {
+        forceLogin: function() {
             //console.log(e);
             // we don't do anything here because the event bubbles up to
             // the view and it sends the keypress event

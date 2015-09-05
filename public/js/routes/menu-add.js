@@ -1,4 +1,4 @@
-App.MenuAddRoute = Ember.Route.extend({
+App.MenusAddRoute = Ember.Route.extend({
 	model: function(){
 		// return this.store.find("Product");
 	},

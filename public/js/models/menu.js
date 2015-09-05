@@ -9,6 +9,7 @@ App.Menu = DS.Model.extend({
 });
 App.Menu.FIXTURES = [
 {
+    "id": "1",
     "venId": "vendor1",
     "menuType": "Breakfast",
     "maxOrder": "15",
@@ -22,6 +23,7 @@ App.Menu.FIXTURES = [
     "image": "https://aahaaram.files.wordpress.com/2013/10/alu-paratha.jpg"
 },
 {
+    "id": "2",
     "venId": "vendor1",
     "menuType": "Lunch",
     "maxOrder": "20",
@@ -37,6 +39,7 @@ App.Menu.FIXTURES = [
     "image": "https://kitchenpops.files.wordpress.com/2013/05/dal_makhani_zoink.jpg"
 },
 {
+    "id": "3",
     "venId": "vendor1",
     "menuType": "Dinner",
     "maxOrder": "30",
@@ -51,6 +54,7 @@ App.Menu.FIXTURES = [
     "image": "http://photos1.blogger.com/x/blogger2/1778/4272/1600/571793/Palak%20Kofta6.jpg"
 },
 {
+    "id": "4",
     "venId": "vendor2",
     "menuType": "Breakfast",
     "maxOrder": "20",
@@ -64,6 +68,7 @@ App.Menu.FIXTURES = [
     "image": "http://sarikasethgunjal.com/wp-content/uploads/2014/04/DSC_1565-1.jpg"
 },
 {
+    "id": "5",
     "venId": "vendor2",
     "menuType": "Lunch",
     "maxOrder": "14",
@@ -78,6 +83,7 @@ App.Menu.FIXTURES = [
     "image": "http://www.spiceupthecurry.com/wp-content/uploads/2013/09/Dal-Palak-Recipe-Moong-Dal-with-Spinach1.jpg"
 },
 {
+    "id": "6",
     "venId": "vendor2",
     "menuType": "Dinner",
     "maxOrder": "25",
@@ -93,6 +99,7 @@ App.Menu.FIXTURES = [
     "image": "http://www.itslife.in/wp-content/gallery/recipes-curries-dal/recipes-dals-n-curries-rajma-roti.jpg"
 },
 {
+    "id": "7",
     "venId": "vendor3",
     "menuType": "Breakfast",
     "maxOrder": "18",
@@ -106,6 +113,7 @@ App.Menu.FIXTURES = [
     "image": "http://cdn3.foodviva.com/static-content/food-images/north-indian-recipes/gobhi-paratha-recipe/gobhi-paratha-recipe.jpg"
 },
 {
+    "id": "8",
     "venId": "vendor3",
     "menuType": "Lunch",
     "maxOrder": "25",
@@ -122,6 +130,7 @@ App.Menu.FIXTURES = [
     "image": "http://cdn.whatanindianrecipe.net/wp-content/uploads/2012/11/mixed-vegetable-sabzi-curry.jpg"
 },
 {
+    "id": "9",
     "venId": "vendor3",
     "menuType": "Dinner",
     "maxOrder": "15",
@@ -136,6 +145,7 @@ App.Menu.FIXTURES = [
     "image": "http://ksmartstatic.sify.com/cmf-1.0.0/appflow/bawarchi.com/Image/oetrq6agdhhjd_bigger.jpg"
 },
 {
+    "id": "10",
     "venId": "vendor4",
     "menuType": "Breakfast",
     "maxOrder": "20",
@@ -149,6 +159,7 @@ App.Menu.FIXTURES = [
     "image": "http://1.bp.blogspot.com/-Lenr_rJ-834/TfhIGTSasrI/AAAAAAAAKDM/eU3oSB_ob5g/s400/kcmasala+last.jpg"
 },
 {
+    "id": "11",
     "venId": "vendor4",
     "menuType": "Lunch",
     "maxOrder": "25",
@@ -165,6 +176,7 @@ App.Menu.FIXTURES = [
     "image": "https://reenamansukhani.files.wordpress.com/2014/01/chole-with-butter-naan.jpg"
 },
 {
+    "id": "12",
     "venId": "vendor4",
     "menuType": "Dinner",
     "maxOrder": "10",
@@ -180,6 +192,7 @@ App.Menu.FIXTURES = [
     "image": "http://cdn.whatanindianrecipe.net/wp-content/uploads/2012/11/mixed-vegetable-sabzi-curry.jpg"
 },
 {
+    "id": "13",
     "venId": "vendor5",
     "menuType": "Breakfast",
     "maxOrder": "28",
@@ -193,6 +206,7 @@ App.Menu.FIXTURES = [
     "image": "http://1.bp.blogspot.com/-D8RgcIduiHM/VTS-FakC0MI/AAAAAAAAAiA/tBuOk_0A0_A/s1600/IMG_0582.JPG"
 },
 {
+    "id": "14",
     "venId": "vendor5",
     "menuType": "Lunch",
     "maxOrder": "30",
@@ -208,6 +222,7 @@ App.Menu.FIXTURES = [
     "image": "http://bikanervala.ae/images/breakfast-mini-meals/header7.jpg"
 },
 {
+    "id": "15",
     "venId": "vendor5",
     "menuType": "Dinner",
     "maxOrder": "35",
