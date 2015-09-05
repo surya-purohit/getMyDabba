@@ -6,6 +6,17 @@ App.ApplicationRoute = Ember.Route.extend({
 	},
 
 	setupController: function(controller, model){
+		console.log("chal gya");
+		$(document).ajaxStart(function(){
+			AJAXING = true;
+			$(".spinner").show();
+		});
+
+		$(document).ajaxStop(function(){
+			AJAXING = false;
+			$(".spinner").hide();
+		});
+
 		// the model backing the controller is users
 		// this._super(controller, model);
 	},
