@@ -11,6 +11,7 @@
     <!-- libraries -->
     <script src="js/lib/jquery-2.1.1.min.js"></script>
     <script src="js/lib/handlebars-v1.3.0.js"></script>
+    <script src="js/lib/emberV1.7.0.js"></script>
     <script src="js/lib/ember181.js"></script>
     <script src="js/lib/ember-data.js"></script>
     <script src="js/lib/ember-shortcut.js"></script>
@@ -21,6 +22,7 @@
     <script src="js/models/vendor.js"></script>
     <script src="js/models/menu.js"></script>
     <script src="js/models/products.js"></script>
+    <script src="js/models/confirmation.js"></script>
     <script src="js/controllers/products.js"></script>
     <script src="js/controllers/index.js"></script>
     <script src="js/controllers/application.js"></script>
@@ -33,6 +35,10 @@
     <script src="js/controllers/menu-add.js"></script>
     <script src="js/routes/menu-index.js"></script>
     <script src="js/controllers/menu-index.js"></script>
+    <script src="js/routes/buynow.js"></script>
+    <script src="js/controllers/buynow.js"></script>
+    <script src="js/routes/confirmation.js"></script>
+    <script src="js/controllers/confirmation.js"></script>
     <script>
     (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
@@ -223,6 +229,10 @@
             </div>
             <div id="btn-container">
                 <div class="login-btn" {{action "login"}}>Login</div>
+            </div>
+        </div>
+    </script>
+
     <script type="text/x-handlebars" id="products">
         <table>
             <tbody>
@@ -286,6 +296,21 @@
                 {{/each}}
             </tbody>
         </table>
+    </script>
+    <script type="text/x-handlebars" id="buynow" data-template-name="buynow">
+    <div class="details" style="color:#000000">
+        <label class ="lable1" style="color:red;margin-left:17%">{{error}}</label>
+        <label class ="lable1">User Name <span class ="star">*</span>&nbsp;:</label>
+        {{input type="text" value=name id="name" keyPress=Utils.String.ensureAlphaNumeric maxlength=50 autofocus="true"}}
+        <label class ="lable1">Address <span class="star">*</span>&nbsp;:</label>
+        {{input type="text" value=address id="address" keyPress=Utils.String.ensureAlphaNumeric maxlength=50 autofocus="true"}}
+        <label class ="lable1" >Mobile number <span class="star">*</span>&nbsp;:</label>
+        {{input type="text" id="mobile" value=mobile keyPress=Utils.String.ensureNumeric maxlength=50 autofocus="true"}}
+        <label class ="lable1">Price&nbsp;:</label>
+        {{input type="text" id="price" value=city keyPress=Utils.String.ensureAlphaNumeric maxlength=50 autofocus="true" disabled=true}}<br>
+        <button id="cnfmBtn" {{action 'add'}}>Confirm Order</button>
+                   
+    </div>
     </script>
 </body>
 

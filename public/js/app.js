@@ -27,6 +27,8 @@ App.Router.map(function() {
         this.resource("product", {path:"/:product_id"});
     })
     this.route("social");
+    this.route("buynow");
+    this.route("confirmation");
 });
 
 

@@ -1,4 +1,4 @@
-App.ProductsController = Ember.ArrayController.extend({
+App.ProductsController = Ember.Controller.extend({
 	
     actions: {
     	
