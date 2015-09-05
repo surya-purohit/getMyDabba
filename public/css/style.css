@@ -1,0 +1,94 @@
+#wrapper {
+	width: 1000px;
+	margin: 0 auto;
+}
+header {
+	height: 80px;
+	background: #CECED2;
+	width: 1000px;
+	margin: 0 auto;
+	padding: 10px;
+}
+#btn_wrapper {
+	float: right;
+	/*width: 100px;*/
+	height: 75px;
+	padding-top: 15px;
+}
+.btn {
+	background: #988F8F;
+	height: 40px;
+	color: gainsboro;
+	font-weight: bold;
+	font-size: medium;
+	border-radius: 10px;
+	margin-right: 5px;
+}
+.search_select {
+	width: 220px;
+	background-color: #988F8F;
+	border: 1px solid #cccccc;
+	color: gainsboro;
+	width: 49.5%%;
+	height: 40px;
+	font-size: large;
+	border-radius: 10px;
+}
+#select_wrapper {
+	width: 100%;
+	height: 75px;
+	padding: 10px;
+}
+#company_name {
+	font-weight: bold;
+	font-family: monospace;
+	font-size: 55px;
+	margin-top: 25px;
+	float: left;
+	margin-left: 23px;
+}
+#logo_wrapper {
+	height: 75px;
+	width: 75px;
+	float: left;
+}
+#company_slogan {
+	clear: both;
+    font-size: x-large;
+    padding-top: 5px;
+    padding-bottom: 7px;
+    font-weight: bold;
+    color: dimgray;
+}
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    width: 70%;
+    margin: auto;
+}
+.itemsToBuy {
+	max-width: 200px;
+}
+td {
+	/*min-width: 200px;*/
+}
+table {
+	width: 100%;
+}
+details {
+    margin-top: 60px;
+    height:100%;
+    width:100%;
+}
+.lable1{
+    font-size: 1.25em;
+    margin-left:50px;
+    display: inline-block;
+    width:50%;
+}
+.star{
+    color:red;
+}
+.input{
+    height:30px;
+    width:200px;
+}
