@@ -7,7 +7,6 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link href="css/daba.css" rel="stylesheet" type="text/css" />
-    <link href="css/bootstrap.css" media="screen" rel="stylesheet" />
     <!-- libraries -->
     <script src="js/lib/jquery-2.1.1.min.js"></script>
     <script src="js/lib/handlebars-v1.3.0.js"></script>
@@ -18,6 +17,7 @@
     <script src="js/lib/uuid.js"></script>
     <script src="js/lib/underscore.js"></script>
     <script src="js/lib/utils.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script src="js/app.js"></script>
     <script src="js/models/vendor.js"></script>
     <script src="js/models/menu.js"></script>
@@ -34,6 +34,7 @@
     <script src="js/controllers/vendor.js"></script>
     <script src="js/routes/menu-add.js"></script>
     <script src="js/controllers/menu-add.js"></script>
+    <script src="js/controllers/google-map.js"></script>
     <script src="js/routes/menu-index.js"></script>
     <script src="js/controllers/menu-index.js"></script>
     <script src="js/routes/buynow.js"></script>
@@ -51,234 +52,268 @@
             <h1>Loading...</h1>
         </div>
     </div>
-    
-</head>
+    </head>
 
-<body style="overflow-y: auto;">
-    <script type="text/x-handlebars" id="application" data-template-name="application">
-        <div id="box">
-            <div id="header">
-                <div style="display:inline; float:right;" class="fb-like" data-href="https://www.facebook.com/getmydadda" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-                <div id="logo"></div>
-                <div id="path">
-                    <div id="delivery"></div>
+    <body style="overflow-y: auto;">
+        <script type="text/x-handlebars" id="application" data-template-name="application">
+            <div id="box">
+                <div id="header">
+                    <div style="width: 34%; float:right;" class="fb-like" data-href="https://www.facebook.com/getmydadda" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                    <div id="logo"></div>
+                    <div id="path">
+                        <div id="delivery"></div>
+                    </div>
+                    <div id="links">
+                        {{#link-to "products.index" tagName="a"}}
+                        <button class="link_button" style="font-size: large !important; background: transparent !important">Order Online</button>
+                        {{/link-to}} {{#if logged}} {{#link-to "vendor" tagName="div"}}
+                        <button class="link_button" style="font-size: large !important; background: transparent !important">Vendors Login</button>
+                        {{/link-to}} {{else}}
+                        <button {{action "logout"}} class="link_button" style="font-size: large !important; background: transparent !important">Logout </button>
+                        {{/if}}
+                    </div>
                 </div>
-                <div id="links">
-
-                    {{#link-to "products.index" tagName="a"}}
-                    <button class="link_button" style="font-size: large !important; background: transparent !important">Order Online</button>
-                    {{/link-to}} {{#if logged}} {{#link-to "vendor" tagName="div"}}
-                    <button class="link_button" style="font-size: large !important; background: transparent !important">Vendors Login</button>
-                    {{/link-to}} {{else}}
-                    <button {{action "logout"}} class="link_button" style="font-size: large !important; background: transparent !important">Logout </button>
-                    {{/if}}
-                </div>
-            </div>
-            <div id="nav">
-                {{#link-to "index" tagName="a"}}
-                <div class="nav_button">
-                    <p>Home</p>
-                </div>
-                {{/link-to}}
-                <a href="about.html">
+                <div id="nav">
+                    {{#link-to "index" tagName="a"}}
+                    <div class="nav_button">
+                        <p>Home</p>
+                    </div>
+                    {{/link-to}} {{#link-to "about" tagName="a"}}
                     <div class="nav_button">
                         <p>About Us</p>
                     </div>
-                </a>
-                <a href="visionmission.html">
+                    {{/link-to}}
+                    {{#link-to "index" tagName="a"}}
+                        <div class="nav_button">
+                            <p>Vision and Mission</p>
+                        </div>
+                    {{/link-to}}
+                    {{#link-to "social" tagName="a"}}
                     <div class="nav_button">
-                        <p>Vision and Mission</p>
+                        <p>Social Connect</p>
                     </div>
-                </a>
-                {{#link-to "social" tagName="a"}}
-                <div class="nav_button">
-                    <p>Social Connect</p>
+                    {{/link-to}} {{#link-to "contact" tagName="a"}}
+                    <div class="nav_button">
+                        <p>Contact Us</p>
+                    </div>
+                    {{/link-to}}
+                </div>{{outlet}}
+                <div id="footer">
+                    <p id="copyright">&copy; 2015 GetMyDabba. All Rights Reserved.</p>
+                    <p id="powered">Powered by: Ember Team</p>
                 </div>
-                {{/link-to}} {{#link-to "contact" tagName="a"}}
-                <div class="nav_button">
-                    <p>Contact Us</p>
-                </div>
-                {{/link-to}}
-            </div>{{outlet}}
-            <div id="footer">
-                <p id="copyright">&copy; 2015 GetMyDabba. All Rights Reserved.</p>
-                <p id="powered">Powered by: Ember Team</p>
             </div>
-        </div>
-        </div>
-    </script>
-    <script type="text/x-handlebars" id="index" data-template-name="index">
-        <div id="slider">
-        </div>
-        <div id="info">
-            <div id="services" class="info_box">
-                <h2>What Can You Do Here?</h2>
-                <p>Select Your "Khane Ka Dabba" According To Your Tastes!
+            </div>
+        </script>
+        <script type="text/x-handlebars" id="index" data-template-name="index">
+            <div id="slider">
+            </div>
+            <div id="info">
+                <div id="services" class="info_box">
+                    <h2>What Can You Do Here?</h2>
+                    <p>Select Your "Khane Ka Dabba" According To Your Tastes!
+                        <p>
+                            <p>Order Before Closing Time!
+                                <p>
+                                    <p>Pay by Cash on Delivery!
+                                        <p>
+                </div>
+                <div id="tips" class="info_box">
+                    <h2>Tips</h2>
+                    <p>Order Your Tiffin before the closing time.</p>
+                </div>
+                <div id="time" class="info_box">
+                    <h2>Booking Time</h2>
+                    <p><b>Breakfast:</b> 12a.m. to 7a.m.</p>
+                    <p><b>Lunch:</b> 12a.m. to 1p.m.</p>
+                    <p><b>Dinner:</b> 12a.m. to 8p.m.</p>
+                </div>
+            </div>
+            </div>
+        </script>
+        <script type="text/x-handlebars" id="contact">
+            <div id="page">
+                <h1>Contact Us</h1>
+                <div id="contact_img" /></div>
+            <div id="contact_info" \>
+                <h1>Address:</h1>
+                <p>SCF 210,</p>
+                <p>Green Sq Market
                     <p>
-                        <p>Order Before Closing Time!
-                            <p>
-                                <p>Pay by Cash on Delivery!
-                                    <p>
+                        <p>Hisar, Haryana</p>
+                        <h1>Contact No.:</h1>
+                        <p>+91-9871-889918</p>
+                        <p>+91-9518-222022</p>
             </div>
-            <div id="tips" class="info_box">
-                <h2>Tips</h2>
-                <p>Order Your Tiffin before the closing time.</p>
             </div>
-            <div id="time" class="info_box">
-                <h2>Booking Time</h2>
-                <p><b>Breakfast:</b> 12a.m. to 7a.m.</p>
-                <p><b>Lunch:</b> 12a.m. to 1p.m.</p>
-                <p><b>Dinner:</b> 12a.m. to 8p.m.</p>
-            </div>
-        </div>
-        </div>
-    </script>
-    <script type="text/x-handlebars" id="contact">
-        <div id="page">
-            <h1>Contact Us</h1>
-            <div id="contact_img" /></div>
-        <div id="contact_info" \>
-            <h1>Address:</h1>
-            <p>SCF 210,</p>
-            <p>Green Sq Market
-                <p>
-                    <p>Hisar, Haryana</p>
-                    <h1>Contact No.:</h1>
-                    <p>+91-9871-889918</p>
-                    <p>+91-9518-222022</p>
-        </div>
-        </div>
-    </script>
-
-    <script type="text/x-handlebars" id="menu/add" data-template-name="menu/add">
-        <div class="additem">
-            <div class="additem-header">
-                <div class="additem-title">Add Tomorrow Menu</div>
-                <div class="closebtn btn btn-danger pull-right btn-sm" {{action 'cancelAddMenu'}}>X</div>
-            </div>
-            <div class="form-horizontal">
-                <div class="additem-body addProp full-width">
-                    <div class="control-group addControlGroup">
-                        <label class="control-label"></label>
-                        <div>
-                            <span class="error">{{checked}} </span>
+        </script>
+        <script type="text/x-handlebars" id="menu/add" data-template-name="menu/add">
+            <div class="additem">
+                <div class="additem-header">
+                    <div class="additem-title">Add Tomorrow Menu</div>
+                    <div class="closebtn btn btn-danger pull-right btn-sm" {{action 'cancelAddMenu'}}>X</div>
+                </div>
+                <div class="form-horizontal">
+                    <div class="additem-body addProp full-width">
+                        <div class="control-group addControlGroup">
+                            <label class="control-label"></label>
+                            <div>
+                                <span class="error">{{checked}} </span>
+                            </div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Menu type <span class="star">*</span>:</label>
+                            <div class="controls" id="menu_select">
+                                {{view "select" content=menuType optionValuePath="content" optionLabelPath="content" selection=menu prompt="Select a Menu Type" id="menu"}}
+                            </div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Veg <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="veg"}}</div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Breads <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="breads"}}</div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Rice <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="rice"}}</div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Curd <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="curd"}}</div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Salad <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="salad"}}</div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Desserts <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="dessert"}}</div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Price <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="price"}}</div>
+                        </div>
+                        <div class="control-group addControlGroup">
+                            <label class="control-label">Max Order <span class="star">*</span>:</label>
+                            <div class="controls">{{input type="text" id="order"}}</div>
                         </div>
                     </div>
-                    <div class="control-group addControlGroup">
-                        <label class="control-label">Menu type <span class="star">*</span>:</label>
-                        <div class="controls" id="menu_select">
-                            {{view "select" content=menuType optionValuePath="content" optionLabelPath="content" selection=menu prompt="Select a Menu Type" id="menu"}}
-                        </div>
-                    </div>
-                    <div class="control-group addControlGroup">
-                        <label class="control-label">Veg <span class="star">*</span>:</label>
-                        <div class="controls">{{input type="text" id="veg"}}</div>
-                    </div>
-                    <div class="control-group addControlGroup">
-                        <label class="control-label">Breads <span class="star">*</span>:</label>
-                        <div class="controls">{{input type="text" id="breads"}}</div>
-                    </div>
-                    <div class="control-group addControlGroup">
-                        <label class="control-label">Rice <span class="star">*</span>:</label>
-                        <div class="controls">{{input type="text" id="rice"}}</div>
-                    </div>
-                    <div class="control-group addControlGroup">
-                        <label class="control-label">Curd <span class="star">*</span>:</label>
-                        <div class="controls">{{input type="text" id="curd"}}</div>
-                    </div>
-                    <div class="control-group addControlGroup">
-                        <label class="control-label">Salad <span class="star">*</span>:</label>
-                        <div class="controls">{{input type="text" id="salad"}}</div>
-                    </div>
-                    <div class="control-group addControlGroup">
-                        <label class="control-label">Desserts <span class="star">*</span>:</label>
-                        <div class="controls">{{input type="text" id="dessert"}}</div>
-                    </div>
-                    <div class="control-group addControlGroup">
-
-                        <label class="control-label">Price <span class="star">*</span>:</label>
-                        <div class="controls">{{input type="text" id="price"}}</div>
-                    </div>
-                    <div class="control-group addControlGroup">
-                        <label class="control-label">Max Order <span class="star">*</span>:</label>
-                        <div class="controls">{{input type="text" id="order"}}</div>
+                    <div style="clear:both;"></div>
+                    <div class="additem-footer">
+                        <input type="button" class="btn btn-primary" {{action 'addMenu'}} value="Save">
+                        <input type="button" class="btn btn-primary" {{action 'cancelAddMenu'}} value="Cancel">
                     </div>
                 </div>
-                <div style="clear:both;"></div>
-                <div class="additem-footer">
-                    <input type="button" class="btn btn-primary" {{action 'addMenu'}} value="Save">
-                    <input type="button" class="btn btn-primary" {{action 'cancelAddMenu'}} value="Cancel">
+            </div>
+        </script>
+        <script type="text/x-handlebars" id="vendor" data-template-name="vendor">
+            <div class="msgdiv">{{errorMessage}}</div>
+            <div class="formdiv">
+                <div>
+                    {{input type="text" id="username" class="login-txtbox" placeholder="Username" value=username maxlength="100" keyPress=Utils.String.ensureAlphaNumeric title="Username" action="forceLogin" on="key-press"}}
+                </div>
+                <div>
+                    {{input type="password" id="password" class="login-txtbox" placeholder="Password" value=password maxlength="100" title="Password" action="forceLogin" on="key-press"}}
+                </div>
+                <div id="btn-container">
+                    <div class="login-btn" {{action "login"}}>Login</div>
                 </div>
             </div>
         </div>
     </script>
-    <script type="text/x-handlebars" id="vendor" data-template-name="vendor">
-        <div class="msgdiv">{{errorMessage}}</div>
-        <div class="formdiv">
-            <div>
-                {{input type="text" id="username" class="login-txtbox" placeholder="Username" value=username maxlength="100" keyPress=Utils.String.ensureAlphaNumeric title="Username" action="forceLogin" on="key-press"}}
-            </div>
-            <div>
-                {{input type="password" id="password" class="login-txtbox" placeholder="Password" value=password maxlength="100" title="Password" action="forceLogin" on="key-press"}}
-            </div>
-            <div id="btn-container">
-                <div class="login-btn" {{action "login"}}>Login</div>
-            </div>
-        </div>
-    </script>
 
-    <script type="text/x-handlebars" id="products/index">
-        <table>
-            <tbody>
-                <h1 style="color: white">Breakfast</h1> {{#each products}} {{#link-to "product" this tagName="tr"}}
-                <tr>
-                    <td class="itemsToBuy">
-                        <div>
-                            <img {{bind-attr src=this.image}} width="200px" height="200px" />
+    
+        <script type="text/x-handlebars" id="products/index">
+            <table>
+                <tbody>
+                    <h1 style="color: white">Breakfast</h1> {{#each products}} {{#link-to "product" this tagName="tr"}}
+                    <tr>
+                        <td class="itemsToBuy">
+                            <div>
+                                <img {{bind-attr src=this.image}} width="200px" height="200px" />
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                {{!--
+                                <h4>{{menuType}}</h4>--}}
+                                <h3 style="float:right">Rs.{{price}}</h3>
+                                <br> Food Items: {{#each foodItem}}{{log this}}{{veg}} {{breads}} {{rice}} {{curd}} {{salad}} {{dessert}}{{/each}}
+                                <br>Seller: {{venId}}</div>
+                            <button class="btn">Buy Now</button>
+                        </td>
+                    </tr>{{/link-to}} {{/each}}
+                    <h1 style="color: white">Lunch</h1> {{#each lunch}} {{#link-to "product" this tagName="tr"}}
+                    <tr>
+                        <td class="itemsToBuy">
+                            <div>
+                                <img {{bind-attr src=this.image}} width="200px" height="200px" />
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                {{!--
+                                <h4>{{menuType}}</h4>--}}
+                                <h3 style="float:right">Rs.{{price}}</h3>
+                                <br> Food Items: {{#each foodItem}}{{log this}}{{veg}} {{breads}} {{rice}} {{curd}} {{salad}} {{dessert}}{{/each}}
+                                <br>Seller: {{venId}}</div>
+                            <button class="btn">Buy Now</button>
+                        </td>
+                    </tr>{{/link-to}} {{/each}}
+                </tbody>
+            </table>
+        </script>
+        <script type="text/x-handlebars" id="social">
+            <div id="social_page" style="height:420px;">
+                <div style="float:left; width:40%;">
+                    <div class="fb-page" data-href="https://www.facebook.com/getmydadda" data-small-header="false" width="500" height="420" data-hide-cover="false" data-show-facepile="true" data-show-posts="true">
+                        <div class="fb-xfbml-parse-ignore">
+                            <blockquote cite="https://www.facebook.com/getmydadda"><a href="https://www.facebook.com/getmydadda">Getmydabba</a></blockquote>
                         </div>
-                    </td>
-                    <td>
-                        <div>
-                            {{!--
-                            <h4>{{menuType}}</h4>--}}
-                            <h3 style="float:right">Rs.{{price}}</h3>
-                            <br> Food Items: {{#each foodItem}}{{log this}}{{veg}} {{breads}} {{rice}} {{curd}} {{salad}} {{dessert}}{{/each}}
-                            <br>Seller: {{venId}}</div>
-                    </td>
-                </tr>{{/link-to}} {{/each}}
-                <h1 style="color: white">Lunch</h1> {{#each lunch}} {{#link-to "product" this tagName="tr"}}
-                <tr>
-                    <td class="itemsToBuy">
-                        <div>
-                            <img {{bind-attr src=this.image}} width="200px" height="200px" />
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            {{!--
-                            <h4>{{menuType}}</h4>--}}
-                            <h3 style="float:right">Rs.{{price}}</h3>
-                            <br> Food Items: {{#each foodItem}}{{log this}}{{veg}} {{breads}} {{rice}} {{curd}} {{salad}} {{dessert}}{{/each}}
-                            <br>Seller: {{venId}}</div>
-                    </td>
-                </tr>{{/link-to}} {{/each}}
-            </tbody>
-        </table>
-    </script>
-    <script type="text/x-handlebars" id="social">
-        <div id="social_page" style="height:420px;">
-            <div style="float:left; width:40%;">
-                <div class="fb-page" data-href="https://www.facebook.com/getmydadda" data-small-header="false" width="500" height="420" data-hide-cover="false" data-show-facepile="true" data-show-posts="true">
-                    <div class="fb-xfbml-parse-ignore">
-                        <blockquote cite="https://www.facebook.com/getmydadda"><a href="https://www.facebook.com/getmydadda">Getmydabba</a></blockquote>
                     </div>
                 </div>
+                <div style="float:right; width:58%; height:420px; background-color:#ffffff ;">
+                    <div class="fb-comments" data-href="http://tanmayverma.com/getmydabba/index.html" data-width="100%" data-numposts="2"></div>
+                </div>
             </div>
-            <div style="float:right; width:58%; height:420px; background-color:#ffffff ;">
-                <div class="fb-comments" data-href="http://tanmayverma.com/getmydabba/index.html" data-width="100%" data-numposts="2"></div>
+        </script>
+        <script type="text/x-handlebars" id="menus" data-template-name="menus">{{log "hello"}}{{outlet}}
+        </script>
+        <script type="text/x-handlebars" id="menus/index" data-template-name="menus/index">
+            {{#link-to "menus.add" tagName="div"}}
+            <input type="button" class="btn btn-primary" value="Add Tomorrow Menu"> {{/link-to}}
+            <table>
+                <tbody>
+                    {{#each menusAll}}
+                    <tr>
+                        <td class="itemsToBuy">
+                            <div>
+                                <img {{bind-attr src=this.image}} width="200px" height="200px" />
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <h4>{{this.menuType}}</h4>
+                                <h3 style="float:right">Rs.{{this.price}}</h3>
+                                <br> Food Items:
+                                <br>Seller: {{this.venId}}</div>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </script>
+        <script type="text/x-handlebars" id="about">
+            <div id="googleMap" style="width:100%;height:350px;"></div>
+            {{google-map}}
+            <div id="about_info" style="color: #fff">
+                <p>This is a Web Service launched by no.1 web developer team of India. The four developer come together to make a web application for the Hisar people.</p>
+                <p>The application "getMyDabba" not only give you option to choose your menu but also compare the prices offered by each vendors.</p>
+                <p>We have our customers to thanks for this growth, which have been swift and profitable at all times.</p>
             </div>
-        </div>
-    </script>
+        </script>
      <script type="text/x-handlebars" id="menus" data-template-name="menus">{{log "hello"}}{{outlet}}
      </script>
     <script type="text/x-handlebars" id="menus/index" data-template-name="menus/index">

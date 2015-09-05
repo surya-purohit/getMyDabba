@@ -1484,6 +1484,7 @@ thead th {
     margin: 8px 7px 4px 5px;
     padding: 8px 5px;
     text-align: left;
+    height: 30px !important;
 }
 
 .formdiv{

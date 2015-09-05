@@ -112,3 +112,9 @@ details {
 body{
 	overflow-y: auto !important;
 }
+span {
+	color: #fff !important;
+}
+input {
+	height: 30px;
+}
