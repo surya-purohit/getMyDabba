@@ -234,7 +234,7 @@ App.Product.FIXTURES = [{
     "price": "49",
     "image": "http://1.bp.blogspot.com/-D8RgcIduiHM/VTS-FakC0MI/AAAAAAAAAiA/tBuOk_0A0_A/s1600/IMG_0582.JPG"
 }, {
-    "id": "13",
+    "id": "14",
     "venId": "vendor5",
     "menuType": "Lunch",
     "maxOrder": "30",
